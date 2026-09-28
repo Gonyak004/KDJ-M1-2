@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소비 지출 AI 비서</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>💰 소비 지출 AI 비서</h1>
+        <p>소비 데이터를 관리하고 AI에게 지출을 질문해보세요.</p>
+    </header>
+
+    <!-- 소비 요약 -->
+    <section class="card">
+        <h2>📊 소비 요약</h2>
+
+        <div class="summary-grid">
+            <div class="summary-item">
+                <span>총 지출</span>
+                <strong id="total">0원</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>평균 지출</span>
+                <strong id="average">0원</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>최대 지출</span>
+                <strong id="max">0원</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>최소 지출</span>
+                <strong id="min">0원</strong>
+            </div>
+        </div>
+
+        <p id="trend">최근 추세: -</p>
+    </section>
+
+    <!-- 소비 추이 -->
+<section class="card">
+    <div class="section-header">
+        <h2>📈 소비 추이</h2>
+        <span class="chart-description">날짜별 지출 금액</span>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+    </div>
+</section>
+
+<section class="card">
+    <div class="section-header">
+        <h2>📊 월별 지출</h2>
+        <span class="chart-description">월별 총 지출 금액</span>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</section>
+
+    <!-- 소비 데이터 -->
+<section class="card">
+
+    <div class="section-header">
+        <h2>📝 소비 데이터</h2>
+        <button onclick="openDataForm()">+ 소비 내역 추가</button>
+    </div>
+
+    <div class="form hidden" id="data-form">
+        <input type="hidden" id="edit-id">
+
+        <label>
+            날짜
+            <input type="date" id="data-date">
+        </label>
+
+        <label>
+            금액
+            <input type="number" id="data-value" placeholder="금액">
+        </label>
+
+        <label>
+            메모
+            <input type="text" id="data-memo" placeholder="예: 점심 식사">
+        </label>
+
+        <div>
+            <button onclick="saveData()">저장</button>
+            <button class="secondary" onclick="closeDataForm()">
+                취소
+            </button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>날짜</th>
+                    <th>금액</th>
+                    <th>메모</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+
+            <tbody id="data-list"></tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <button onclick="previousPage()">이전</button>
+
+        <span id="page-info">1 / 1</span>
+
+        <button onclick="nextPage()">다음</button>
+    </div>
+
+</section>
+
+
+    <!-- AI 채팅 -->
+    <section class="card">
+        <h2>🤖 AI 소비 상담</h2>
+
+        <div id="chat-box" class="chat-box">
+            <div class="message assistant">
+                안녕하세요. 소비 지출에 대해 궁금한 점을 질문해주세요.
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input
+                type="text"
+                id="question"
+                placeholder="예: 현재 총 지출이 얼마인가요?"
+                onkeydown="handleEnter(event)"
+            >
+
+            <button onclick="sendQuestion()">전송</button>
+        </div>
+
+        <div id="loading" class="loading hidden">
+            AI가 답변을 작성하고 있습니다...
+        </div>
+    </section>
+
+
+    <!-- 대화 기록 -->
+    <section class="card">
+        <div class="section-header">
+            <h2>💬 대화 기록</h2>
+            <button onclick="loadConversations()">새로고침</button>
+        </div>
+
+        <div id="conversation-list">
+        </div>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
