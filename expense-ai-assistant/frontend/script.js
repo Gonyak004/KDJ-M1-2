@@ -214,9 +214,7 @@ function nextPage() {
 
 async function loadSummary() {
     try {
-        const response = await fetch(
-            `${API_BASE_URL}/api/data/summary`
-        );
+        const response = await fetch(`${API_BASE_URL}/api/data/summary`);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -224,67 +222,29 @@ async function loadSummary() {
 
         const summary = await response.json();
 
-        const period = document.getElementById("summary-period");
-        const count = document.getElementById("summary-count");
-        const total = document.getElementById("summary-total");
-        const average = document.getElementById("summary-average");
-        const max = document.getElementById("summary-max");
-        const min = document.getElementById("summary-min");
-        const trend = document.getElementById("summary-trend");
+        console.log("요약 데이터:", summary);
 
-        if (period) {
-            period.textContent =
-                summary.period || "데이터 없음";
-        }
+        document.getElementById("summary-total").textContent =
+            `${Number(summary.total).toLocaleString()}원`;
 
-        if (count) {
-            count.textContent =
-                `${summary.count || 0}건`;
-        }
+        document.getElementById("summary-average").textContent =
+            `${Number(summary.average).toLocaleString()}원`;
 
-        if (total) {
-            total.textContent =
-                `${Number(summary.total || 0).toLocaleString()}원`;
-        }
+        document.getElementById("summary-max").textContent =
+            `${Number(summary.max).toLocaleString()}원`;
 
-        if (average) {
-            average.textContent =
-                `${Number(summary.average || 0).toLocaleString()}원`;
-        }
+        document.getElementById("summary-min").textContent =
+            `${Number(summary.min).toLocaleString()}원`;
 
-        if (max) {
-            max.textContent =
-                `${Number(summary.max || 0).toLocaleString()}원`;
-        }
+        const trendElement = document.getElementById("summary-trend");
 
-        if (min) {
-            min.textContent =
-                `${Number(summary.min || 0).toLocaleString()}원`;
-        }
-
-        if (trend) {
-            trend.textContent =
-                summary.recent_trend || "데이터가 없습니다.";
+        if (trendElement) {
+            trendElement.textContent =
+                summary.recent_trend || "-";
         }
 
     } catch (error) {
         console.error("요약 정보 불러오기 실패:", error);
-
-        const total = document.getElementById("summary-total");
-        const count = document.getElementById("summary-count");
-        const average = document.getElementById("summary-average");
-        const max = document.getElementById("summary-max");
-        const min = document.getElementById("summary-min");
-        const trend = document.getElementById("summary-trend");
-        const period = document.getElementById("summary-period");
-
-        if (period) period.textContent = "데이터 없음";
-        if (count) count.textContent = "0건";
-        if (total) total.textContent = "0원";
-        if (average) average.textContent = "0원";
-        if (max) max.textContent = "0원";
-        if (min) min.textContent = "0원";
-        if (trend) trend.textContent = "데이터를 불러오는 중입니다.";
     }
 }
 
