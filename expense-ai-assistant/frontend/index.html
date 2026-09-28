@@ -69,7 +69,7 @@
                     총 지출
                 </span>
 
-                <strong id="total">
+                <strong id="summary-total">
                     0원
                 </strong>
 
@@ -82,7 +82,7 @@
                     평균 지출
                 </span>
 
-                <strong id="average">
+                <strong id="summary-average">
                     0원
                 </strong>
 
@@ -95,7 +95,7 @@
                     최대 지출
                 </span>
 
-                <strong id="max">
+                <strong id="summary-max">
                     0원
                 </strong>
 
@@ -108,7 +108,7 @@
                     최소 지출
                 </span>
 
-                <strong id="min">
+                <strong id="summary-min">
                     0원
                 </strong>
 
@@ -117,8 +117,8 @@
         </div>
 
 
-        <p id="trend">
-            최근 추세: -
+        <p id="summary-trend">
+                -
         </p>
 
     </section>
@@ -201,7 +201,7 @@
 
             <input
                 type="hidden"
-                id="edit-id"
+                id="data-id"
             >
 
 
@@ -351,7 +351,7 @@
 
             <input
                 type="text"
-                id="question"
+                id="question-input"
                 placeholder="예: 현재 총 지출이 얼마인가요?"
                 onkeydown="handleEnter(event)"
             >
