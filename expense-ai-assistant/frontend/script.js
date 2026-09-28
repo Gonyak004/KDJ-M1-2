@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadData();
     loadSummary();
     loadConversations();
+    loadTheme();
 });
 
 
@@ -733,4 +734,60 @@ async function loadConversation(id) {
             "대화를 불러오지 못했습니다."
         );
     }
+}
+
+// =========================
+// 다크모드
+// =========================
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+
+    const isDark =
+        document.body.classList.contains("dark-mode");
+
+    localStorage.setItem(
+        "darkMode",
+        isDark ? "on" : "off"
+    );
+
+    updateThemeButton(isDark);
+}
+
+
+function loadTheme() {
+
+    const darkMode =
+        localStorage.getItem("darkMode");
+
+    const isDark =
+        darkMode === "on";
+
+    if (isDark) {
+
+        document.body.classList.add(
+            "dark-mode"
+        );
+    }
+
+    updateThemeButton(isDark);
+}
+
+
+function updateThemeButton(isDark) {
+
+    const button =
+        document.getElementById(
+            "theme-toggle"
+        );
+
+    if (!button) {
+        return;
+    }
+
+    button.textContent =
+        isDark
+            ? "☀️ 라이트모드"
+            : "🌙 다크모드";
 }
