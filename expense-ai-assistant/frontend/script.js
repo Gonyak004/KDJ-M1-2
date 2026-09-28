@@ -484,13 +484,14 @@ function drawExpenseChart(data) {
 
             plugins: {
                 legend: {
-                    display: true
+                    display: true,
                     labels: {
                         usePointStyle: true,
                         pointStyle: "line"
                     }
                 }
             },
+
             scales: {
                 y: {
                     beginAtZero: true,
